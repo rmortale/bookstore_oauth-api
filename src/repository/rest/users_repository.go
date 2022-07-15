@@ -3,9 +3,7 @@ package rest
 import (
 	"encoding/json"
 	"github.com/mercadolibre/golang-restclient/rest"
-	_ "github.com/mercadolibre/golang-restclient/rest"
-	"github.com/rmortale/bookstore_oauth-api/src/domain/users"
-	"github.com/rmortale/bookstore_oauth-api/src/utils/errors"
+	"github.com/rmortale/bookstore_utils-go/rest_errors"
 	"time"
 )
 
@@ -17,7 +15,7 @@ var (
 )
 
 type RestUsersRepository interface {
-	LoginUser(string, string) (*users.User, *errors.RestErr)
+	LoginUser(string, string) (*users.User, rest_errors.RestErr)
 }
 
 type usersRepository struct {
@@ -27,7 +25,7 @@ func NewRepository() RestUsersRepository {
 	return &usersRepository{}
 }
 
-func (r *usersRepository) LoginUser(email string, password string) (*users.User, *errors.RestErr) {
+func (r *usersRepository) LoginUser(email string, password string) (*users.User, rest_errors.RestErr) {
 	request := users.UserLoginRequest{
 		Email:    email,
 		Password: password,
